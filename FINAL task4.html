@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<style>
+			#playarea 
+			{
+				display: none;
+			}
+		</style>
+	</head>
+	
+	<body style= "background-image: radial-gradient(white, orange, orange);">
+		
+		<table id= "table" border= "5" align= "center" height= "50%" width= "80%" cellspacing= "0" cellpadding= "8">
+			<tr>
+				<td style="font-size: 50px; font-family: fantasy" align="center">MULTIPLICATION GAME</td>
+			</tr>
+			
+			<tr>
+				<td>
+				<center><img src= "mathspic.jpg" height= "30%" width= "50%" alt= "Image not found"/></center>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+				<form id="playareaForm">
+					<label for="answer" style="font-size: 30px; font-family: fantasy">Your Answer:</label>
+					<input type="text" id="answer" disabled style="font-size: 20px; font-family: fantasy">
+					<button type="button" onclick="PlayGame()" id="playgame" style="font-size: 20px; font-family: fantasy">Play</button>
+					<button type="button" onclick="CheckAnswer()" id="acceptButton" style="font-size: 20px; font-family: fantasy" disabled>Accept</button>
+					<button type="button" onclick="randomNumber()" id="nextButton" style="font-size: 20px; font-family: fantasy" disabled>Next</button>
+				</form>
+				</td>
+			</tr>
+		</table>
+		
+		
+		
+		<div id="playarea">
+			<p id="equation" style="font-size: 40px; font-family: fantasy"></p>
+		</div>
+	
+		<script type= "text/javascript">
+			
+			let correct_answer;
+			
+			function randomNumber() //task 4
+			{
+				const int1 = Math.floor(Math.random() * 9) + 1;//generate a whole number between 1 and 9 inclusive
+				const int2 = Math.floor(Math.random() * 5) + 1;//generate a whole number between 1 and 5 inclusive
+				correct_answer = int1 * int2;
+				
+				document.getElementById('equation').innerText = int1 + " * " + int2 + " = ?";//to access the div element in order to show the equation
+				document.getElementById('answer').value = '';
+
+				return correct_answer;
+			}			
+			
+			function PlayGame() //task 4
+			{
+				//enabling the disabled buttons when the user presses the play button
+				document.getElementById('answer').disabled = false;
+				document.getElementById('acceptButton').disabled = false;
+				document.getElementById('nextButton').disabled = false;
+				
+				//allowing the playarea to be displayed
+				document.getElementById('playarea').style.display = 'block';
+
+				randomNumber();//Start the game immediately when clicking Play
+			}
+			
+			
+			//task 6
+			var correct_response = 0;
+			var incorrect_response = 0;
+			function CheckAnswer() 
+			{
+				const user_input = document.getElementById('answer').value;
+				
+				if (isNaN(user_input))//checks if the input is a number 
+				{
+					alert("Please enter a valid number.");
+					return;
+				}
+				
+				if(user_input == correct_answer)
+				{
+					correct_response++;//increments the correct_response variable by 1
+					alert("Correct!!!");
+				}
+				else
+				{
+					incorrect_response++;
+					alert("Incorrect :(");
+				}
+				
+				var answers = 
+				{
+				correct_response: correct_response,
+				incorrect_response: incorrect_response
+				};
+				
+				PlayerRegistrationData.push(answers);
+			}
+		</script>
+	</body>
+</html>
+
